@@ -1,12 +1,20 @@
 var data = require('./data.js');
+var test = require('./test.js');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 var CHANGE_EVENT = 'change';
-
+var n = 1;
 var TodoStore = assign({}, EventEmitter.prototype, {
 
     getAll() {
         return data;
+    },
+    createRect(){
+        var thingToInsert = new test("new rectangle"+n++);
+        data.insertUnder(thingToInsert);
+        thingToInsert.setParent(data);
+        TodoStore.emitChange();
+
     },
     toggleCollapsed(entry) {
         entry.toggleCollapsed();
@@ -20,8 +28,8 @@ var TodoStore = assign({}, EventEmitter.prototype, {
         TodoStore.emitChange();
     },
     insertAfter(thingToInsert, thingToInsertAfter) {
-        thingToInsertAfter.parent.insertAfter(thingToInsert, thingToInsertAfter);
         thingToInsert.parent.remove(thingToInsert);
+        thingToInsertAfter.parent.insertAfter(thingToInsert, thingToInsertAfter);
         thingToInsert.setParent(thingToInsertAfter.parent);
         TodoStore.emitChange();
     },

@@ -49,7 +49,7 @@ var TreeItem = React.createClass({
 
         if (!this.canDrop()) {
             this.setState({cursor: noDrop});
-        } else if (e.nativeEvent.offsetY > 12) {
+        } else if (e.nativeEvent.offsetY < 12) {
             this.setState({cursor: dropAfter});
         } else {
             this.setState({cursor: dropUnder});
@@ -64,7 +64,7 @@ var TreeItem = React.createClass({
     onMouseDown(e) {
         if (e.button !== 0) return;
         this.setState({canDrop: false});
-        $(document).trigger("dragStart", this.props.name)
+        $(document).trigger("dragStart", this.props.name);
         $(document).one("mouseup", this.onDragEnd)
     },
     select() {
@@ -81,14 +81,13 @@ var TreeItem = React.createClass({
     canDrop() {
         return this.state.canDrop && this.props.canDrop
     },
-    toggleCollapsed(){
+    toggleCollapsed() {
         DataStore.toggleCollapsed(this.props.name);
     },
     render() {
         var children = this.props.name.children;
         var lineStyle = {
-            background: this.props.pos % 2 == 0 ? '#505050' : '#484848',
-            display: 'flex' //,borderTop: '1px solid #606060', borderBottom: '1px solid #404040'
+            background: this.props.posi % 2 == 0 ? '#505050' : '#484848'
         };
         var itemStyle = {
             paddingLeft: 4,
@@ -98,20 +97,20 @@ var TreeItem = React.createClass({
         };
         var oldT = this.props.tubes;
         return (
-            <div className="hello">
-                <span style={lineStyle}>
+            <div className="hello" style={this.props.style}>
+                <span className="line" style={lineStyle}>
                     <span>
                     {this.props.tubes.map(e=>(e == "⊟" ?
                         <span className={'test collapsible'} onClick={this.toggleCollapsed}>{this.props.name.isCollapsed ? "⊞" : "⊟"}</span> :
                         <span className={'test'}>{e}</span>))}
                     </span>
-                    <div style={itemStyle} onMouseMove={this.onMouseMove} onMouseDown={this.onMouseDown} onMouseLeave={this.onMouseLeave} onClick={this.select}>
+                    <div style={itemStyle} className="item" onMouseMove={this.onMouseMove} onMouseDown={this.onMouseDown} onMouseLeave={this.onMouseLeave} onClick={this.select}>
                         {this.props.name.name}
                     </div>
                 </span>
 
                 {this.props.name.isCollapsed || children.map((e, i, a) =>
-                        <TreeItem name={e} key={e.id} pos={TreeHelper.calcPosition(i, a, this.props.pos)} tubes={TreeHelper.tubes(e, i, a, oldT)} canDrop={this.canDrop()}/>
+                        <TreeItem name={e} key={e.id} posi={TreeHelper.calcPosition(i, a, this.props.posi)} tubes={TreeHelper.tubes(e, i, a, oldT)} canDrop={this.canDrop()}/>
                 )}
             </div>
         );

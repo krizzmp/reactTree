@@ -1,4 +1,4 @@
-var {List,Map} = require('immutable');
+var {List} = require('immutable');
 class Counter {
     constructor() {
         this.count = 1;
@@ -22,7 +22,7 @@ class test {
     insertAfter(thingToInsert, thingToInsertAfter) {
         var index = this.children.indexOf(thingToInsertAfter);
         console.log(index);
-        this.children = this.children.splice(index + 1, 0, thingToInsert);
+        this.children = this.children.splice(index, 0, thingToInsert);
     }
 
     insertUnder(thingToInsert) {
@@ -62,36 +62,4 @@ class test {
         return this.children.toSeq().reduce((prev, curr)=>  prev + curr.totalChildren(), 0) + this.children.size;
     }
 }
-var t1 = new test(
-    'rectangle', new test(
-        'circle', new test(
-            'null', new test(
-                'house', new test(
-                    'roof', new test(
-                        'base'
-                    )
-                )
-            )
-        ),
-        new test(
-            '1.2', new test(
-                '1.1.1', new test(
-                    '1', new test(
-                        '1.1', new test(
-                            '1.1.1'
-                        )
-                    ), new test(
-                        '1.1.1', new test(
-                            '1', new test(
-                                '1.1', new test(
-                                    '1.1.1'
-                                )
-                            )
-                        )
-                    )
-                )
-            )
-        )
-    )
-);
-module.exports = t1;
+module.exports = test;

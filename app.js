@@ -1,23 +1,28 @@
 var React = require('react');
-var DataStore = require('./datastore.js');
-var {List,Map} = require('immutable');
-var TreeItem = require("./tree-item.js")
+var Tree = require("./js/tree.js");
+var Toolbar = require("./js/toolbar.js");
 
-var Testing = React.createClass({
-    getInitialState() {
-        return {data: DataStore.getAll()};
-    },
-    componentDidMount() {
-        DataStore.addChangeListener(this._onChange);
-    },
-    componentWillUnmount() {
-        DataStore.removeChangeListener(this._onChange);
-    },
-    _onChange() {
-        this.setState({data: DataStore.getAll()});
-    },
+var App = React.createClass({
     render() {
-        return <TreeItem name={this.state.data} pos={1} tubes={List(["└", '⊟'])} canDrop={true}/>;
+        return (
+            <div className="v-split">
+                <Toolbar/>
+                <div className="h-split">
+                    <div className="content">
+                    hello
+                    </div>
+                    <div className="sidebar">
+                        <div className="group">
+                            <div className="header">
+                            Objects
+                            </div>
+
+                            <Tree/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
     }
 });
-React.render(<Testing/>, document.getElementById("app"));
+React.render(<App/>, document.getElementById("app"));
