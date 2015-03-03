@@ -3,7 +3,7 @@ var DataStore = require('./datastore.js');
 var createRect=()=>{
     DataStore.createRect();
 };
-var Tree = React.createClass({
+var Toolbar = React.createClass({
 
     render() {
         return (
@@ -15,4 +15,4 @@ var Tree = React.createClass({
     }
 });
 
-module.exports = Tree;
+module.exports = Toolbar;

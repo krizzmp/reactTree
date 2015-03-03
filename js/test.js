@@ -9,19 +9,17 @@ class Counter {
     }
 }
 var counter = new Counter();
-class test {
-    constructor(name, ...g) {
+class TreeData {
+    constructor( ...g) {
         this.id = counter.getCount();
         this.children = List(g);
         this.children.forEach((c)=>c.setParent(this));
-        this.name = name;
         this.isCollapsed = false;
         this.selected = false;
     }
 
     insertAfter(thingToInsert, thingToInsertAfter) {
         var index = this.children.indexOf(thingToInsertAfter);
-        console.log(index);
         this.children = this.children.splice(index, 0, thingToInsert);
     }
 
@@ -56,10 +54,15 @@ class test {
     }
 
     totalChildren() {
-        if (this.isCollapsed) {
-            return 0;
-        }
-        return this.children.toSeq().reduce((prev, curr)=>  prev + curr.totalChildren(), 0) + this.children.size;
+        return this.isCollapsed? 0 : this.children.toSeq().reduce((prev, curr)=>  prev + curr.totalChildren(), 0) + this.children.size;
     }
 }
-module.exports = test;
+class Shape extends TreeData{
+    constructor(name) {
+        super();
+        this.name = name;
+        this.x = 0;
+        this.y = 0;
+    }
+}
+module.exports = Shape;

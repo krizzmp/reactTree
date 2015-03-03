@@ -1,13 +1,17 @@
 var data = require('./data.js');
-var test = require('./test.js');
+var test = require('./rectangle.js');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 var CHANGE_EVENT = 'change';
 var n = 1;
+var selected = [];
 var TodoStore = assign({}, EventEmitter.prototype, {
 
     getAll() {
         return data;
+    },
+    getSelected(){
+        return selected;
     },
     createRect(){
         var thingToInsert = new test("new rectangle"+n++);
@@ -16,6 +20,22 @@ var TodoStore = assign({}, EventEmitter.prototype, {
         TodoStore.emitChange();
 
     },
+    updateWidth(e,n){
+        e.width = n;
+        TodoStore.emitChange();
+    },
+    updateHeight(e,n){
+        e.height = n;
+        TodoStore.emitChange();
+    },
+    updateX(e,n){
+        e.x = n;
+        TodoStore.emitChange();
+    },
+    updateY(e,n){
+        e.y = n;
+        TodoStore.emitChange();
+    },
     toggleCollapsed(entry) {
         entry.toggleCollapsed();
         TodoStore.emitChange();
@@ -23,8 +43,10 @@ var TodoStore = assign({}, EventEmitter.prototype, {
     select(entry, one) {
         if (one) {
             data.deselectAll();
+            selected = [];
         }
         entry.select();
+        selected.push(entry)
         TodoStore.emitChange();
     },
     insertAfter(thingToInsert, thingToInsertAfter) {

@@ -18,11 +18,11 @@ var Tree = React.createClass({
         this.setState({data: DataStore.getAll()});
     },
     render() {
-        var oldT = List(["└", '⊟']);
+        var oldT = List(["└"]);
         return(
         <div>
         {this.state.data.children.map((e, i, a) => {
-            return <TreeItem name={e} key={e.id} posi={TreeHelper.calcPosition(i, a, 0)} tubes={TreeHelper.tubes(e, i, a, oldT)} canDrop={true}/>
+            return <TreeItem name={e} key={e.id} posi={TreeHelper.calcPosition(i, a, 0)} tubes={TreeHelper.tubes(e, i, a, oldT).shift()} canDrop={true}/>
         })}</div>)
     }
 });
