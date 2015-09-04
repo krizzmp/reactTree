@@ -20,22 +20,6 @@ var TodoStore = assign({}, EventEmitter.prototype, {
         TodoStore.emitChange();
 
     },
-    updateWidth(e,n){
-        e.width = n;
-        TodoStore.emitChange();
-    },
-    updateHeight(e,n){
-        e.height = n;
-        TodoStore.emitChange();
-    },
-    updateX(e,n){
-        e.x = n;
-        TodoStore.emitChange();
-    },
-    updateY(e,n){
-        e.y = n;
-        TodoStore.emitChange();
-    },
     toggleCollapsed(entry) {
         entry.toggleCollapsed();
         TodoStore.emitChange();
@@ -46,7 +30,7 @@ var TodoStore = assign({}, EventEmitter.prototype, {
             selected = [];
         }
         entry.select();
-        selected.push(entry)
+        selected.push(entry);
         TodoStore.emitChange();
     },
     insertAfter(thingToInsert, thingToInsertAfter) {
@@ -63,6 +47,12 @@ var TodoStore = assign({}, EventEmitter.prototype, {
     },
     remove(thing) {
         thing.parent.remove(thing);
+        TodoStore.emitChange();
+    },
+    removeSelected() {
+        var s = this.getSelected();
+        s.forEach((thing)=>{thing.parent.remove(thing);});
+
         TodoStore.emitChange();
     },
     emitChange() {

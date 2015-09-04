@@ -1,0 +1,98 @@
+@primary-color: #f5f5f5;
+@primary-color-light: #fbfbfb;
+@border-color: #d1d1d2;
+@border-color-top: #eaeaeb;
+@border-color-bottom: #e0e0e1;
+
+.hello {
+  -webkit-user-select: none;
+  cursor: default;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  color: #000;
+}
+
+.test {
+  width: 9px;
+  display: inline-block;
+  font-family: monospace;
+  font-size: 16px;
+  height: 16px;
+  line-height: 16px;
+}
+
+.line {
+  display: flex;
+  height: 16px;
+  &.sel{
+    background: #d4d4d4;
+  }
+}
+
+.item {
+  font-size: 12px;
+  line-height: 16px;
+  padding-left: 2px;
+  flex: 1;
+}
+
+.collapsible {
+  cursor: pointer;
+}
+
+#app {
+  height: 100%;
+}
+
+.v-split {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.h-split {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+}
+
+.content {
+  flex: 1;
+  border-right: 1px solid @border-color;
+  background: @primary-color-light;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  background: @primary-color;
+  width: 175px;
+  font-family: sans-serif;
+  .group {
+    border-right: 1px solid @border-color;
+    flex: 1;
+  }
+}
+
+.toolbar {
+  background: #f0f0f0;
+  height: 48px;
+  border-bottom: 1px solid @border-color;
+  line-height: 48px;
+  display: flex;
+  align-items: center;
+}
+
+button {
+  border: 1px solid @border-color;
+  background: @primary-color;
+  height: 40px;
+  width: 40px;
+  margin-left: 5px;
+  border-radius: 3px;
+  outline: none;
+  font-size: 24px;
+}
